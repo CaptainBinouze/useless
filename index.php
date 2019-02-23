@@ -1,3 +1,29 @@
+
+
+<?php
+try
+{
+    $bdd = new PDO('mysql:host=localhost;dbname=useless;charset=utf8', 'root', '');
+}
+catch(Exception $e)
+{
+    die('Erreur : '.$e->getMessage());
+}
+
+$quote = " ";
+$author = " ";
+
+$reponse = $bdd->query('SELECT * FROM quote');
+
+while ($donnees = $reponse->fetch())
+{
+    $quote = $donnees["value"];
+    $author = $donnees["author"];
+}
+
+$reponse->closeCursor();
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,8 +37,13 @@
     </head>
     <body>
         <div class="content">
+
             <div class="text">
-                <p>Exige beaucoup de toi-même et attends peu des autres. Ainsi beaucoup d'ennuis te seront épargnés.</p>
+                <div class="image">
+                    <img src="assets/images/quote.png"/>
+                </div>
+                <p><?php echo $quote; ?></p>
+                <p class="author"><?php echo $author; ?></p>
             </div>
 
             <div class="project">
